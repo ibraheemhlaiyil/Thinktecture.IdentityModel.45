@@ -128,6 +128,22 @@ namespace Thinktecture.IdentityModel.Tokens.Http
         {
             // grab header
             var headerValues = request.Headers.SingleOrDefault(h => h.Key == Configuration.SessionToken.HeaderName).Value;
+
+            // grab cookies
+            if (headerValues == null && Configuration.SessionToken.CookieName != null)
+            {
+                if (request.Headers.GetCookies().FirstOrDefault() != null)
+                {
+                    var cookie = request.Headers.GetCookies().FirstOrDefault().Cookies.Where(c =>
+                        c.Name == Configuration.SessionToken.CookieName).SingleOrDefault();
+
+                    if (cookie != null)
+                    {
+                        headerValues = new[] { cookie.Value };
+                    }
+                }
+            }
+
             if (headerValues != null)
             {
                 var header = headerValues.SingleOrDefault();

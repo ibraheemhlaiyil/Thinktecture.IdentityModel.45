@@ -16,6 +16,7 @@ namespace Thinktecture.IdentityModel.Tokens.Http
         public TimeSpan DefaultTokenLifetime { get; set; }
         public string EndpointAddress { get; set; }
         public string HeaderName { get; set; }
+        public string CookieName { get; set; }
         public string Scheme { get; set; }
         public string Audience { get; set; }
         public byte[] SigningKey { get; set; }
